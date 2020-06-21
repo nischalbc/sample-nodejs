@@ -2,10 +2,10 @@
 
 const requestHandler = (req, res) => {
     const url = req.url;
-    res.setHeader('Content-Type', 'text/html')
-    res.write('<html lang="en-us">');
-    res.write('<head><title>Nodejs Sample</title></head>');
     if(url === '/') {
+        res.setHeader('Content-Type', 'text/html')
+        res.write('<html lang="en-us">');
+        res.write('<head><title>Nodejs Sample</title></head>');
         res.write(`<body>
                         <div>
                             <h4>Hello </h4>
@@ -19,18 +19,33 @@ const requestHandler = (req, res) => {
                             </form>
                         </div>
                 </body>`);
+        res.write('</html>');
+        return res.end();
     }
 
     if(url === '/users') {
+        res.setHeader('Content-Type', 'text/html')
+        res.write('<html lang="en-us">');
+        res.write('<head><title>Nodejs Sample</title></head>');
         res.write('<body><ul> <li> Drake sienskei </li> <li> Josh greenman</li> </ul></body>');
+        res.write('</html>');
+        return res.end();
     }
 
     if(url === '/create-user') {
-        console.log('thikknd');
+        const data = [];
+        req.on('data', (chunk) => {
+            data.push(chunk)
+        });
+        req.on('end', () => {
+            const parsedBody = Buffer.concat(data).toString();
+            console.log(parsedBody.split('=')[1]);
+        });
+        res.statusCode = 302;
+        res.setHeader('Location', '/')
+        res.end();
     }
 
-    res.write('</html>');
-    return res.end();
 };
 
 module.exports = requestHandler;
