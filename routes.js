@@ -14,7 +14,6 @@ const requestHandler = (req, res) => {
                             <form action="/create-user" method="post">
                                 <label for="username">Username: </label>
                                 <input type="text" name="username" placeholder="enter a username">
-                            
                                 <button type="submit">Submit</button>
                             </form>
                         </div>
