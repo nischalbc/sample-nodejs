@@ -11,7 +11,9 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.getAdminProducts = (req, res, next) => {
-    res.render('admin/products', { pageTitle: 'Add Product', path: '/admin/products' });
+    Product.fetchAll((products) => {
+        res.render('admin/products', {prods: products, pageTitle: 'Admin Products', path: '/admin/products'});
+    });
 };
 
 exports.putEditProduct = (req, res, next) => {
